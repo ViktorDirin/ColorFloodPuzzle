@@ -25,11 +25,42 @@
         </div>
         
         <div class="game-controls">
-            <button id="new-game-btn">New Game</button>
-            <button id="reset-btn">Reset</button>
+            <button id="settings-btn">⚙️ Настройки</button>
         </div>
         
         <div class="game-message" id="game-message"></div>
+    </div>
+    
+    <!-- Modal Settings Window -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ Настройки игры</h2>
+                <button class="modal-close" id="modal-close">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h3>🎮 Уровни</h3>
+                    <button id="new-game-btn" class="modal-btn">🎯 Кастомный уровень</button>
+                    <button id="random-level-btn" class="modal-btn">🎲 Случайный уровень</button>
+                    <div style="margin: 10px 0; padding: 10px; background: #f0f0f0; border-radius: 8px;">
+                        <h4 style="margin: 0 0 8px 0; color: #333;">🧪 Тестовые уровни:</h4>
+                        <button id="level1-btn" class="modal-btn">1️⃣ Уровень 1 (Крест)</button>
+                        <button id="level2-btn" class="modal-btn">2️⃣ Уровень 2 (Рамка)</button>
+                        <button id="level3-btn" class="modal-btn">3️⃣ Уровень 3 (Полосы)</button>
+                    </div>
+                    <button id="reset-btn" class="modal-btn">🔄 Сбросить</button>
+                </div>
+                <div class="settings-section">
+                    <h3>🎨 Редактор</h3>
+                    <button id="edit-level-btn" class="modal-btn">✏️ Редактировать уровень</button>
+                </div>
+                <div class="settings-section">
+                    <h3>🔄 Обновления</h3>
+                    <button id="check-updates-btn" class="modal-btn">🔄 Проверить обновления</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="script.js"></script>
