@@ -69,6 +69,10 @@ h1 {
     background-color: #ffff44;
 }
 
+#target-color-display.blue {
+    background-color: #4444ff;
+}
+
 .color-palette {
     display: flex;
     justify-content: center;
@@ -133,6 +137,10 @@ h1 {
 
 .grid-cell.yellow {
     background-color: #ffff44;
+}
+
+.grid-cell.blue {
+    background-color: #4444ff;
 }
 
 .game-controls {

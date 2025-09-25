@@ -1,7 +1,7 @@
 class LevelEditor {
     constructor() {
         this.gridSize = { rows: 20, cols: 10 };
-        this.colors = ['red', 'green', 'yellow'];
+        this.colors = ['red', 'green', 'yellow', 'blue'];
         this.selectedColor = null;
         this.targetColor = 'red'; // Default target color
         this.editorBoard = [];

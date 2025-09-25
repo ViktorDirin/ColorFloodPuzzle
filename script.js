@@ -1,7 +1,7 @@
 class ColorFloodGame {
     constructor() {
         this.gridSize = { rows: 20, cols: 10 };
-        this.colors = ['red', 'green', 'yellow'];
+        this.colors = ['red', 'green', 'yellow', 'blue'];
         this.clicksRemaining = 3;
         this.selectedColor = null;
         this.targetColor = null;
@@ -66,12 +66,21 @@ class ColorFloodGame {
                         this.gameBoard[row][col] = 'yellow';
                     }
                 } else {
-                    // Level 3: Yellow stripes, red and green alternating
-                    if (this.isYellowStripe(row, col)) {
-                        this.gameBoard[row][col] = 'yellow';
-                    } else if ((row + col) % 2 === 0) {
-                        this.gameBoard[row][col] = 'red';
+                    // Level 3: Blue cross with quadrant pattern
+                    if (this.isBlueCross(row, col)) {
+                        this.gameBoard[row][col] = 'blue';
+                    } else if (this.isQuadrantPattern(row, col)) {
+                        // Top-left and bottom-right: red and green mix
+                        const isTopLeft = (row < 9 && col < 4);
+                        const isBottomRight = (row > 10 && col > 5);
+                        if (isTopLeft || isBottomRight) {
+                            this.gameBoard[row][col] = (row + col) % 2 === 0 ? 'red' : 'green';
+                        } else {
+                            // Top-right and bottom-left: yellow and green mix
+                            this.gameBoard[row][col] = (row + col) % 2 === 0 ? 'yellow' : 'green';
+                        }
                     } else {
+                        // Center areas around cross
                         this.gameBoard[row][col] = 'green';
                     }
                 }
@@ -121,6 +130,24 @@ class ColorFloodGame {
     isYellowStripe(row, col) {
         // Yellow horizontal stripes every 4 rows
         return row % 4 === 0 || row % 4 === 1;
+    }
+    
+    isBlueCross(row, col) {
+        // Blue cross in center - vertical and horizontal bands
+        const isVerticalBand = (col >= 4 && col <= 5);
+        const isHorizontalBand = (row >= 9 && row <= 10);
+        return isVerticalBand || isHorizontalBand;
+    }
+    
+    isQuadrantPattern(row, col) {
+        // Top-left and bottom-right: red and green mix
+        const isTopLeft = (row < 9 && col < 4);
+        const isBottomRight = (row > 10 && col > 5);
+        // Top-right and bottom-left: yellow and green mix  
+        const isTopRight = (row < 9 && col > 5);
+        const isBottomLeft = (row > 10 && col < 4);
+        
+        return isTopLeft || isTopRight || isBottomLeft || isBottomRight;
     }
     
     selectRandomTargetColor() {
@@ -611,28 +638,37 @@ class ColorFloodGame {
         // Clear color selection
         document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
         
-        // Load Level 3: Yellow stripes, red and green alternating
+        // Load Level 3: Blue cross with quadrant pattern
         this.gameBoard = [];
         for (let row = 0; row < this.gridSize.rows; row++) {
             this.gameBoard[row] = [];
             for (let col = 0; col < this.gridSize.cols; col++) {
-                if (this.isYellowStripe(row, col)) {
-                    this.gameBoard[row][col] = 'yellow';
-                } else if ((row + col) % 2 === 0) {
-                    this.gameBoard[row][col] = 'red';
+                if (this.isBlueCross(row, col)) {
+                    this.gameBoard[row][col] = 'blue';
+                } else if (this.isQuadrantPattern(row, col)) {
+                    // Top-left and bottom-right: red and green mix
+                    const isTopLeft = (row < 9 && col < 4);
+                    const isBottomRight = (row > 10 && col > 5);
+                    if (isTopLeft || isBottomRight) {
+                        this.gameBoard[row][col] = (row + col) % 2 === 0 ? 'red' : 'green';
+                    } else {
+                        // Top-right and bottom-left: yellow and green mix
+                        this.gameBoard[row][col] = (row + col) % 2 === 0 ? 'yellow' : 'green';
+                    }
                 } else {
+                    // Center areas around cross
                     this.gameBoard[row][col] = 'green';
                 }
             }
         }
         
-        this.targetColor = 'yellow';
+        this.targetColor = 'red';
         const targetDisplay = document.getElementById('target-color-display');
         targetDisplay.className = this.targetColor;
         this.renderBoard();
         this.updateUI();
         this.clearMessage();
-        this.showMessage('Загружен Уровень 3 (Полосы)!', 'info');
+        this.showMessage('Загружен Уровень 3 (Синий крест)!', 'info');
         this.closeModal();
     }
     
